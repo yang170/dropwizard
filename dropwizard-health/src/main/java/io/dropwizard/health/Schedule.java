@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Schedule {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHealthFactory.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Schedule.class);
 
-    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] healthChecks.schedule.{}";
-    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] healthChecks.schedule.{}";
+    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] health.healthChecks.schedule.{}";
+    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] health.healthChecks.schedule.{}";
 
     @Nullable
     @JsonProperty

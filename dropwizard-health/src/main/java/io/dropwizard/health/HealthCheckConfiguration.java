@@ -9,10 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HealthCheckConfiguration {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHealthFactory.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HealthCheckConfiguration.class);
 
-    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] healthChecks.{}";
-    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] healthChecks.{}";
+    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] health.healthChecks.{}";
+    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] health.healthChecks.{}";
 
     @NotNull
     @Size(min = 1)

@@ -36,8 +36,8 @@ public class DefaultHealthFactory implements HealthFactory {
 
     private static final String DEFAULT_BASE_NAME = "health-check";
     private static final String DEFAULT_PATH = "/health-check";
-    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] {}";
-    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] {}";
+    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] health.{}";
+    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] health.{}";
 
     @JsonProperty
     private boolean enabled = true;

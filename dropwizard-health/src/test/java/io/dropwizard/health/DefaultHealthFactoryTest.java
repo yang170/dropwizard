@@ -29,8 +29,13 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class DefaultHealthFactoryTest {
+    private boolean DEBUG_INJECTION = true;
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHealthFactoryTest.class);
+
     private final ObjectMapper objectMapper = Jackson.newObjectMapper();
     private final Validator validator = Validators.newValidator();
     private final YamlConfigurationFactory<DefaultHealthFactory> configFactory =
@@ -38,7 +43,12 @@ class DefaultHealthFactoryTest {
 
     @Test
     void shouldBuildHealthFactoryFromYaml() throws Exception {
-        final DefaultHealthFactory healthFactory = configFactory.build(new ResourceConfigurationSourceProvider(), "/yml/health.yml");
+        final DefaultHealthFactory healthFactory = configFactory.build(new ResourceConfigurationSourceProvider(),
+                "/yml/health-ctest.yml");
+
+        if (DEBUG_INJECTION) {
+            LOGGER.info("[CTEST][DEBUG INJECTION] Value for isEnabled is {}", healthFactory.isEnabled());
+        }
 
         assertThat(healthFactory.isDelayedShutdownHandlerEnabled()).isTrue();
         assertThat(healthFactory.isEnabled()).isTrue();
@@ -68,7 +78,8 @@ class DefaultHealthFactoryTest {
 
     @Test
     void configure() throws Exception {
-        final DefaultHealthFactory healthFactory = configFactory.build(new ResourceConfigurationSourceProvider(), "/yml/health.yml");
+        final DefaultHealthFactory healthFactory = configFactory.build(new ResourceConfigurationSourceProvider(),
+                "/yml/health-ctest.yml");
 
         LifecycleEnvironment lifecycleEnvironment = new LifecycleEnvironment(new MetricRegistry());
 

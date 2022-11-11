@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.validation.OneOf;
 import io.dropwizard.validation.PortRange;
 import javax.validation.constraints.NotEmpty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import javax.validation.Valid;
@@ -55,6 +57,9 @@ import java.util.List;
  * </table>
  */
 public class ProxyConfiguration {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProxyConfiguration.class);
+    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] httpClient.proxy.{}";
+    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] httpClient.proxy.{}";
 
     @NotEmpty
     private String host = "";
@@ -71,6 +76,14 @@ public class ProxyConfiguration {
 
     @Nullable
     private List<String> nonProxyHosts;
+
+    private String getStackTrace() {
+        String stacktrace = " ";
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            stacktrace = stacktrace.concat(element.getClassName() + "\t");
+        }
+        return stacktrace;
+    }
 
     public ProxyConfiguration() {
     }
@@ -92,42 +105,58 @@ public class ProxyConfiguration {
 
     @JsonProperty
     public String getHost() {
+        String ctestParam = "host";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return host;
     }
 
     @JsonProperty
     public void setHost(String host) {
+        String ctestParam = "host";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.host = host;
     }
 
     @JsonProperty
     public Integer getPort() {
+        String ctestParam = "port";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return port;
     }
 
     @JsonProperty
     public void setPort(Integer port) {
+        String ctestParam = "port";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.port = port;
     }
 
     @JsonProperty
     public String getScheme() {
+        String ctestParam = "scheme";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return scheme;
     }
 
     @JsonProperty
     public void setScheme(String scheme) {
+        String ctestParam = "scheme";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.scheme = scheme;
     }
 
     @JsonProperty
     @Nullable
     public List<String> getNonProxyHosts() {
+        String ctestParam = "nonProxyHosts";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return nonProxyHosts;
     }
 
     @JsonProperty
     public void setNonProxyHosts(List<String> nonProxyHosts) {
+        String ctestParam = "nonProxyHosts";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.nonProxyHosts = nonProxyHosts;
     }
 

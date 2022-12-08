@@ -19,7 +19,8 @@ class HealthCheckConfigurationTest {
 
     @Test
     void shouldBuildHealthCheckConfigurationFromYaml() throws Exception {
-        final HealthCheckConfiguration healthCheckConfig = configFactory.build(new ResourceConfigurationSourceProvider(), "/yml/healthCheck.yml");
+        final HealthCheckConfiguration healthCheckConfig = configFactory
+                .build(new ResourceConfigurationSourceProvider(), "/yml/healthCheck-ctest.yml");
 
         assertThat(healthCheckConfig.getName()).isEqualTo("cassandra");
         assertThat(healthCheckConfig.isCritical()).isTrue();

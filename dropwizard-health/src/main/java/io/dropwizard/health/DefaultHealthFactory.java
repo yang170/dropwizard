@@ -36,6 +36,8 @@ public class DefaultHealthFactory implements HealthFactory {
 
     private static final String DEFAULT_BASE_NAME = "health-check";
     private static final String DEFAULT_PATH = "/health-check";
+    private static final String CTEST_GET_PARAM_FORMAT = "[CTEST][GET-PARAM] health.{}";
+    private static final String CTEST_SET_PARAM_FORMAT = "[CTEST][SET-PARAM] health.{}";
 
     @JsonProperty
     private boolean enabled = true;
@@ -69,11 +71,23 @@ public class DefaultHealthFactory implements HealthFactory {
     @JsonProperty("responder")
     private HealthResponderFactory healthResponderFactory = new ServletHealthResponderFactory();
 
+    private String getStackTrace() {
+        String stacktrace = " ";
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            stacktrace = stacktrace.concat(element.getClassName() + "\t");
+        }
+        return stacktrace;
+    }
+
     public boolean isEnabled() {
+        String ctestParam = "enabled";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return enabled;
     }
 
     public void setEnabled(boolean enabled) {
+        String ctestParam = "enabled";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.enabled = enabled;
     }
 
@@ -88,26 +102,38 @@ public class DefaultHealthFactory implements HealthFactory {
     }
 
     public boolean isInitialOverallState() {
+        String ctestParam = "initialOverallState";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return initialOverallState;
     }
 
     public void setInitialOverallState(boolean initialOverallState) {
+        String ctestParam = "initialOverallState";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.initialOverallState = initialOverallState;
     }
 
     public boolean isDelayedShutdownHandlerEnabled() {
+        String ctestParam = "delayedShutdownHandlerEnabled";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return delayedShutdownHandlerEnabled;
     }
 
     public void setDelayedShutdownHandlerEnabled(final boolean delayedShutdownHandlerEnabled) {
+        String ctestParam = "delayedShutdownHandlerEnabled";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.delayedShutdownHandlerEnabled = delayedShutdownHandlerEnabled;
     }
 
     public Duration getShutdownWaitPeriod() {
+        String ctestParam = "shutdownWaitPeriod";
+        LOGGER.warn(CTEST_GET_PARAM_FORMAT, ctestParam);
         return shutdownWaitPeriod;
     }
 
     public void setShutdownWaitPeriod(final Duration shutdownWaitPeriod) {
+        String ctestParam = "shutdownWaitPeriod";
+        LOGGER.warn(CTEST_SET_PARAM_FORMAT, ctestParam + getStackTrace());
         this.shutdownWaitPeriod = shutdownWaitPeriod;
     }
 

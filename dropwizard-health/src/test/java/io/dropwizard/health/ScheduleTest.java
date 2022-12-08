@@ -19,7 +19,8 @@ class ScheduleTest {
 
     @Test
     void shouldBuildAScheduleFromYaml() throws Exception {
-        final Schedule schedule = configFactory.build(new ResourceConfigurationSourceProvider(), "/yml/schedule.yml");
+        final Schedule schedule = configFactory.build(new ResourceConfigurationSourceProvider(),
+                "/yml/schedule-ctest.yml");
 
         assertThat(schedule.getCheckInterval().toMilliseconds()).isEqualTo(2500L);
         assertThat(schedule.getDowntimeInterval().toSeconds()).isEqualTo(25L);
